@@ -128,3 +128,18 @@ counter = querydb2("tarea ", "en proceso4", counter, function(error, result){
 counter = querydb1("tarea ", "en proceso5", counter, function(error, result){
     console.log("Resultado: ", result);
 });
+
+var promiseone = function suma(n, m){
+    let x = n + m;
+    return new Promise(function (resolve, reject){
+        if(x != null){
+            resolve(x);
+        }else{
+            reject(x);
+        }
+    });
+}
+
+
+Promise.all([promise2("hola ", "mundo"), promiseone(5,3)]).then(values => {console.log(`${values} Proceso Terminado`)})
+.catch(error => {console.log(error)});
