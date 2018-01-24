@@ -21,15 +21,15 @@ querydb("a", "b", function(error, result){
 var promise2 = function (where, limit){
     let result = `${where}${limit}`;
     return new Promise (function (resolve, reject){
-        if (result != null){
+        if (where != null){
             resolve(result);
         }else{
-            reject(Error("Doesn't Work"));
+            reject(new Error("ERROR ERROR"));
         } 
     })
 }
 
-promise2("aaa ", " bbbb").then(function (uid){
+/*promise2("aaa ", " bbbb").then(function (uid){
     console.log(uid);
     promise2(uid, "aaa ").then(function (uid){
         console.log(uid);
@@ -48,9 +48,9 @@ promise2("aaa ", " bbbb").then(function (uid){
         });
 }).catch(function (error){
     console.log(error);
-});
+});*/
 
-promise2("a", "b") // 'ab'
+/*promise2("a", "b") // 'ab'
     .then( (res) => {
         return promise2(res, '->c')
     }) // 'ab->c'
@@ -58,19 +58,25 @@ promise2("a", "b") // 'ab'
         return promise2(res, '->z')
     }) // 'ab->c->z'
     .then(console.log); // Imprime 'ab->c->z'
+    */
+    const errorHandler = (e) => { console.log(e.toString()) };
 
 async function asincrono(where, limit){
-    var a = await promise2(where, limit);
-    console.log(a);
-    var b = await promise2(a, where);
-    console.log(b);
-    var c = await promise2(b, where);
-    console.log(c);
-    var d = await promise2(c, where);
-    console.log(d);
+    try{
+        var a = await promise2(where, limit);
+        console.log(a);
+        var b = await promise2(a, where);
+        console.log(b);
+        var c = await promise2(null, null);
+        console.log(c+"ddddddddddd");
+        var d = await promise2(c, where);
+        console.log(d);
+    }catch(error){
+        errorHandler(error);
+    }
 }
 
-//asincrono("aaa ", " bbbb");
+asincrono("aaa ", " bbbb");
 /*ar promise1 = new Promise(function(resolve, reject) {
     setTimeout(function(){
         return `${where}${limit}`
